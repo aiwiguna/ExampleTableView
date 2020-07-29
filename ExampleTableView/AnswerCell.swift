@@ -1,20 +1,19 @@
 //
-//  TopTableViewCell.swift
+//  AnswerCell.swift
 //  ExampleTableView
 //
-//  Created by Antoni Wiguna on 18/07/20.
+//  Created by Antoni Wiguna on 29/07/20.
 //  Copyright © 2020 aiwiguna. All rights reserved.
 //
 
 import UIKit
 
-class TopTableViewCell: UITableViewCell {
-	
-	@IBOutlet weak var background: UIView!
+class AnswerCell: UITableViewCell {
 
-    override func awakeFromNib() {
+	@IBOutlet weak var answerLabel: UILabel!
+	override func awakeFromNib() {
         super.awakeFromNib()
-		background.dropShadow()
+        // Initialization code
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

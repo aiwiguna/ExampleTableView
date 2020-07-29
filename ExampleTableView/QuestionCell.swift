@@ -1,20 +1,19 @@
 //
-//  HeaderTableViewCell.swift
+//  QuestionCell.swift
 //  ExampleTableView
 //
-//  Created by Antoni Wiguna on 18/07/20.
+//  Created by Antoni Wiguna on 29/07/20.
 //  Copyright © 2020 aiwiguna. All rights reserved.
 //
 
 import UIKit
 
-class HeaderTableViewCell: UITableViewCell {
+class QuestionCell: UITableViewCell {
 
-	@IBOutlet weak var titleLabel: UILabel!
+	@IBOutlet weak var questionLabel: UILabel!
 	override func awakeFromNib() {
         super.awakeFromNib()
-		titleLabel.dropShadow()
-
+        // Initialization code
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

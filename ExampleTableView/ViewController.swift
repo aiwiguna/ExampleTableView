@@ -8,53 +8,61 @@
 
 import UIKit
 
+struct Answer {
+	let answerText: String
+}
+
+struct Question {
+	let questionText: String
+	let answers: [Answer]
+}
+
 class ViewController: UIViewController {
 	
 	@IBOutlet weak var tableView: UITableView!
-	let numOfData = 10
+	var questions: [Question] = []
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
+		
+		for i in 1...10 {
+			let question = Question(questionText: "Question \(i)", answers: [
+				Answer(answerText: "Answer 1 Question \(i)"),
+				Answer(answerText: "Answer 2 Question \(i)"),
+				Answer(answerText: "Answer 3 Question \(i)"),
+				Answer(answerText: "Answer 4 Question \(i)")
+			])
+			questions.append(question)
+		}
 		tableView.dataSource = self
-		tableView.separatorStyle = .none
+		tableView.delegate = self
+		tableView.sectionHeaderHeight = UITableView.automaticDimension;
+		tableView.estimatedSectionHeaderHeight = 44
 	}
 	
 	
 }
 
-extension ViewController: UITableViewDataSource {
+extension ViewController: UITableViewDataSource, UITableViewDelegate {
 	func numberOfSections(in tableView: UITableView) -> Int {
-		return 3
+		return questions.count
 	}
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		switch section {
-		case 0:
-			return 3
-		case 1:
-			return 1
-		default:
-			return numOfData
-		}
+		return questions[section].answers.count
 	}
 	
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-		switch indexPath.section {
-		case 0:
-			let cell = tableView.dequeueReusableCell(withIdentifier: "TopCell", for: indexPath)
-			return cell
-		case 1:
-			let cell = tableView.dequeueReusableCell(withIdentifier: "HeaderCell", for: indexPath)
-			return cell
-		default:
-			let cell = tableView.dequeueReusableCell(withIdentifier: "CommonCell", for: indexPath) as! CommonTableViewCell
-			if indexPath.row != numOfData-1 {
-				cell.setBackground(isLastItem: false)
-			} else {
-				cell.setBackground(isLastItem: true)
-			}
-			return cell
-		}
+		let cell = tableView.dequeueReusableCell(withIdentifier: "AnswerCell", for: indexPath) as! AnswerCell
 		
+		cell.answerLabel.text = questions[indexPath.section].answers[indexPath.row].answerText
+		return cell
+	}
+	
+	func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+		let cell = tableView.dequeueReusableCell(withIdentifier: "QuestionCell") as! QuestionCell
+		
+		cell.questionLabel.text = questions[section].questionText
+		return cell
 	}
 }
 
